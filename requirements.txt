@@ -1,0 +1,3 @@
+git+git://github.com/Seeed-Studio/grove.py@d39d213c79566679fc6c531bce67eeb208d5f537#egg=grove.py
+paho-mqtt
+rpi_ws281x
