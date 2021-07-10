@@ -17,8 +17,7 @@ COLOR_RED = Color(255, 0, 0)
 COLOR_BLUE = Color(0, 255, 0)
 COLOR_GREEN = Color(0, 0, 255)
 
-DEVICE='notification_led'
-TOPIC=f'rpi0/{DEVICE}'
+TOPIC=f'rpi0/notification_led'
 
 global client
 global strip
@@ -28,32 +27,6 @@ bool2mqtt = {True: "ON", False: "OFF"}
 
 def on_connect(client, userdata, flags, rc):
     logging.debug(f"Connected with result code {str(rc)}")
-    logging.debug("Registering at Home Assistant")
-    payload = {
-        "~": TOPIC,
-        "schema": "json",
-        "name": "Notification LED",
-        "unique_id": DEVICE,
-        "cmd_t": "~/set",
-        "stat_t": "~/status",
-        "brightness": True,
-        "color_mode": True,
-        "supported_color_modes": ["rgb"],
-        "effect": True,
-        "effect_list":[
-            "blink",
-            "colorWipe",
-            "theaterChase",
-            "wheel",
-            "rainbow",
-            "rainbowCycle",
-            "theaterChaseRainbow"
-        ]
-    }
-    client.publish(
-        f"homeassistant/light/{DEVICE}/config",
-        payload=json.dumps(payload),
-        qos=0, retain=False)
 
     logging.debug(f"Subscribed to {TOPIC}")
     client.subscribe(f"{TOPIC}/set")
