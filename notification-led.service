@@ -1,0 +1,17 @@
+[Unit]
+Description=Home Assistant Notification LED
+After=multi-user.target
+
+[Service]
+User=root
+Type=idle
+ExecStart=/usr/bin/python3 main.py
+WorkingDirectory=/home/pi/rpi0-notification-strip
+Environment=MQTT_HOST="gumball.vrutkovs.eu"
+Environment=MQTT_USER="vadim"
+Environment=MQTT_PASSWORD="foobar"
+Environment=PYTHONUNBUFFERED=1
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
