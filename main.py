@@ -38,7 +38,7 @@ def on_connect(client, userdata, flags, rc):
         "stat_t": "~/status",
         "brightness": True,
         "color_mode": True,
-        "supported_color_modes": ["rgbw"],
+        "supported_color_modes": ["rgb"],
         "effect": True,
         "effect_list":[
             "blink",
@@ -67,7 +67,8 @@ def on_connect(client, userdata, flags, rc):
             'g': 0,
             'b': 125,
             'w': 0
-        }
+        },
+        'color_mode': 'rgb',
     }
 
     mqtt_publish(client, "set", status)
@@ -133,6 +134,7 @@ def reconcileColor(desired):
         return
 
     status['color'] = desired['color']
+    status['color_mode'] = 'rgb'
 
 
 def status_color_to_led(status):
